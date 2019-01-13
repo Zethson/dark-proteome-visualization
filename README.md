@@ -1,4 +1,4 @@
-# dark-proteome-visualization
+# Dark-Proteome-Visualization
 [![Build Status](https://travis-ci.org/Zethson/dark-proteome-visualization.svg?branch=development)](https://travis-ci.org/Zethson/dark-proteome-visualization)
 
 [Dark Proteome](http://dark-proteome.com)
