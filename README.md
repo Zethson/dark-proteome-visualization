@@ -1,10 +1,14 @@
 # dark-proteome-visualization
 [![Build Status](https://travis-ci.org/Zethson/dark-proteome-visualization.svg?branch=development)](https://travis-ci.org/Zethson/dark-proteome-visualization)
+
+[Dark Proteome](http://dark-proteome.com)
+
 # Local Setup
 ```
 $ python setup.py clean --all install
 $ dark_proteome_visualization
 ```
+Point your browser to http://0.0.0.0:5000/
 
 # Production Setup
 1. SSH into server as root (if no user with superuser privileges exists) 
