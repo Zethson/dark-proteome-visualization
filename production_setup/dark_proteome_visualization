@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name dark-proteome.com www.dark-proteome.com.com;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/zeth/dark-proteome-visualization/dark-proteome-visualization.sock;
+    }
+}

@@ -1,0 +1,29 @@
+sudo: required
+language: python
+matrix:
+  include:
+    - python: 2.7
+    - python: 3.4
+    - python: 3.5
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+install:
+  - cd ${TRAVIS_BUILD_DIR}
+  - pip install .
+  - pip install codecov pytest pytest-cov
+
+script: python -m pytest --cov=dark_proteome_visualization .
+
+
+after_success:
+  - codecov
+
+notifications:
+  email:
+    recipients:
+      - lukas.heumos@gmail.com
+    on_success: never
+    on_failure: always

@@ -89,6 +89,8 @@ lerna-debug.log
 .DS_Store
 Thumbs.db
 
+# Build Files
 __pycache__/
 build/
 dark_proteome_visualization.egg-info/
+
