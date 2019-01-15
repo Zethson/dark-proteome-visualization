@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+
+  <meta charset="utf-8">
+  <title>Boxplot2</title>
+    <link rel = "stylesheet" type = "text/css"
+          href = "/static/boxplot2.css">
+  
+</head>
+
+<body>
+        <!-- Plotly chart will be drawn inside this DIV -->
+        <div id="myDiv"></div>
+        <script src= "http://d3js.org/d3.v5.min.js"></script>
+<!--		http://d3js.org/d3.v5.min.js -->
+<!-- https://d3js.org/d3.v4.min.js -->
+    <script type="text/javascript">
+        var dark_proteomes = {{ dark_proteomes | safe }};
+        var dark_proteins = {{ dark_proteins | safe }};
+		var cat = [];
+		cat[0] = "Viruses";
+		cat[1] = "Eukaryota";
+		cat[2] = "Bacteria";
+		cat[3] = "Archaea";
+		
+		var param = "_disorder";
+     </script>
+
+        <script src="/static/js/boxplot2.js" type="text/javascript"></script>
+
+</body>
+{% endblock %}
+</html>
