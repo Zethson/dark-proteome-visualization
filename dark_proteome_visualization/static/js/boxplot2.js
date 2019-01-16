@@ -96,6 +96,7 @@
   // Compute an ordinal xScale for the keys in boxPlotData
   var xScale = d3.scalePoint()
     .domain(Object.keys(groupCounts))
+//    .domain(key1)
     .rangeRound([0, width])
     .padding([0.5]);
 
@@ -127,13 +128,26 @@
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Move the left axis over 25 pixels, and the top axis over 35 pixels
-  var axisG = svg.append("g").attr("transform", "translate(25,0)");
-  var axisTopG = svg.append("g").attr("transform", "translate(35,0)");
+  var axisG = svg.append("g")
+          .attr("transform", "translate(25,0)");
+
+  var axisTopG = svg.append("g")
+          .attr("transform", "translate(35,0)");
 
   // Setup the group the box plot elements will render in
   var g = svg.append("g")
     .attr("transform", "translate(20,5)");
-
+	
+  for (var i = 0; i < key1.length; i++) {
+	     g.append("text")
+ //      text.append("tspan")
+            .attr("x", 2*i*54)
+            .attr("font-size", "12px")
+            .attr("y", -10)
+            .text(key1[i]);
+        }
+	
+	
   // Draw the box plot vertical lines
   var verticalLines = g.selectAll(".verticalLines")
     .data(boxPlotData)
