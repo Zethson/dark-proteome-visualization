@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://d3js.org/d3.v3.js"></script>
+</head>
+<body>
+</body>
+</html>
+<script>
+
+</script>
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>About the Dark Proteome</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}"/>
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}"/>
+    </noscript>
+    <style>
+        html, body, #root{
+            padding: 0;
+            margin: 0;
+        }
+        #root{
+            width: 1200px;
+        }
+
+        body {
+            font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        .legend {
+            display: inline-block;
+        }
+        .legend .circle{
+            border-radius: 5px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .container{
+            /*background: rgba(166,166,166,1);*/
+            margin: 20px;
+        }
+        #info{
+            position: absolute;
+            display: inline-block;
+            min-width: 150px;
+            padding: 10px;
+            /*border-radius: 3px;*/
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='assets/js/d3.min.js') }}"></script>
+</head>
+<body class="is-preload">
+
+<!-- Header -->
+<header id="header">
+    <a href="{{ url_for('index') }}" class="title">About the Dark Proteome</a>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}" class="active">About</a></li>
+            <li><a href="{{ url_for('explore') }}">Explore</a></li>
+            <li><a href="{{ url_for('analyze') }}">Analyze</a></li>
+            <li><a href="{{ url_for('features') }}">Features</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <div class="inner">
+            <h1 class="major">About the Dark Proteome</h1>
+            <span class="image fit"><img src="{{ url_for('static', filename='images/rsz_lappalainen_proteiini.jpg') }}"
+                                         alt=""/></span>
+            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis
+                dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
+                Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia
+                malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien
+                risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit
+                tristique.</p>
+            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet
+                dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo
+                mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis
+                elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+            <div id="container">
+                <div id="content"></div>
+<div id="root">
+    <div class="container">
+        <h1>Domain</h1>
+        <div class="legend" id="domainsLegend"></div>
+        <h3>Distribution of Length of Different Domains</h3>
+        <svg id="draw1"></svg>
+        <h3>Distribution of Disorder of Different Domains</h3>
+        <svg id="draw2"></svg>
+        <h3>Distribution of Darkness of Different Domains</h3>
+        <svg id="draw3"></svg>
+    </div>
+    <div class="container">
+        <h1>Kingdom</h1>
+        <div class="legend" id="kingdomLegend"></div>
+        <h3>Distribution of Length of Different Kingdoms</h3>
+        <svg id="draw4"></svg>
+        <h3>Distribution of Disorder of Different Kingdoms</h3>
+        <svg id="draw5"></svg>
+        <h3>Distribution of Darkness of Different Kingdoms</h3>
+        <svg id="draw6"></svg>
+    </div>
+    <div class="container">
+        <h1>Organism</h1>
+        <h3>Distribution of Length of Different Organisms</h3>
+        <svg id="draw7"></svg>
+        <h3>Distribution of Disorder of Different Organisms</h3>
+        <svg id="draw8"></svg>
+        <h3>Distribution of Darkness of Different Organisms</h3>
+        <svg id="draw9"></svg>
+    </div>
+</div>
+<div id="info">
+
+</div>
+
+                {% block content %}
+                    <script src={{ url_for('static',filename='js/network.js') }}></script>
+                {% endblock %}
+            </div>
+
+        </div>
+    </section>
+
+
+</div>
+
+<!-- Footer -->
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; Dark Proteome Visualization. All rights reserved.</li>
+            <li>Design: Adapted from <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+</body>
+</html>
