@@ -19,13 +19,14 @@
 
 <!-- Header -->
 <header id="header">
-    <a href="{{ url_for('index') }}" class="title">Hyperspace</a>
+    <a href="{{ url_for('index') }}" class="title">Explore the Dark Proteome</a>
     <nav>
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('explore') }}">Explore</a></li>
-            <li><a href="{{ url_for('analyze') }}" class="active">Analyze</a></li>
+            <li><a href="{{ url_for('explore') }}" class="active">Explore</a></li>
+            <li><a href="{{ url_for('analyze') }}">Analyze</a></li>
+            <li><a href="{{ url_for('features') }}">Features</a></li>
         </ul>
     </nav>
 </header>
@@ -52,11 +53,9 @@
             <div id="container">
                 <div id="content"></div>
 
-                <script type="text/javascript">
-                    var dark_proteomes = {{ dark_proteomes | safe }};
-                    var dark_proteins = {{ dark_proteins | safe }};
-                </script>
-                <script src={{ url_for('static',filename='js/copy.js') }}></script>
+                {% block content %}
+                    <script src={{ url_for('static',filename='js/raindrop.js') }}></script>
+                {% endblock %}
             </div>
 
         </div>

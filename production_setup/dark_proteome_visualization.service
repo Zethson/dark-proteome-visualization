@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve dark_proteome_visualization
+After=network.target
+
+[Service]
+User=zeth
+Group=www-data
+WorkingDirectory=/home/zeth/dark-proteome-visualization
+Environment="PATH=/home/zeth/dark-proteome-visualization/dpenv/bin"
+ExecStart=/home/zeth/dark-proteome-visualization/dpenv/bin/gunicorn --workers 3 --bind unix:dark-proteome-visualization.sock -m 007 dark_proteome_visualization.app:app
+
+[Install]
+WantedBy=multi-user.target

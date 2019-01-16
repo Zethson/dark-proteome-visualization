@@ -23,9 +23,9 @@ TEMPLATES_PATH = os.path.join(MODULE_DIR, 'templates')
 @click.command()
 @click.option('-d', '--debug',
               help='Enable Flask debugger', required=False)
-@click.option('-l', '--listen', default='127.0.0.1',
+@click.option('-l', '--listen', default='0.0.0.0',
               help='Listen to this address for HTTP', required=False)
-@click.option('-p', '--port', default=8000,
+@click.option('-p', '--port', default=5000,
               help='Listen this port for HTTP', required=False)
 def main(debug, listen, port):
     app.template_folder = TEMPLATES_PATH
