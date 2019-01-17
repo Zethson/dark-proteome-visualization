@@ -6,9 +6,9 @@
 # Local Setup
 ```
 $ python setup.py clean --all install
-$ dark_proteome_visualization
+$ dark_proteome_visualization -l 127.0.0.1
 ```
-Point your browser to http://0.0.0.0:5000/
+Point your browser to http://127.0.0.1:5000/
 
 # Production Setup
 1. SSH into server as root (if no user with superuser privileges exists) 
