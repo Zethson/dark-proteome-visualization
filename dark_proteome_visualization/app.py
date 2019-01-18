@@ -1,11 +1,8 @@
 import logging
 import os
 import configparser
-import rapidjson as json
 from flask import Flask
 
-from dark_proteome_visualization.model.parser.dark_proteins_parser import parse_dark_proteins
-from dark_proteome_visualization.model.parser.dark_proteome_parser import parse_dark_proteome
 
 console = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
