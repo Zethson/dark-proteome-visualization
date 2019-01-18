@@ -28,17 +28,17 @@ function loadData(type) {
     }
   } else {
     data = [];
-    for (let i = 0; i < dark_proteomes.length; i++) {
+    for (let i = 0; i < dark_proteins.length; i++) {
       data.push({
-        domain : dark_proteomes[i]._domain,
-        kingdom : dark_proteomes[i]._kingdom,
-        organism_id : dark_proteomes[i]._organism_id,
-        darkness : dark_proteomes[i]._darkness,
-        length : dark_proteomes[i]._length,
-        disorder: dark_proteomes[i]._disorder,
-        primary_accession: dark_proteomes[i]._primary_accession,
-        compositional_bias: dark_proteomes[i]._compositional_bias,
-        membrane: dark_proteomes[i]._membrane
+        domain : dark_proteins[i]._domain,
+        kingdom : dark_proteins[i]._kingdom,
+        organism_id : dark_proteins[i]._organism_id,
+        darkness : dark_proteins[i]._darkness,
+        length : dark_proteins[i]._length,
+        disorder: dark_proteins[i]._disorder,
+        primary_accession: dark_proteins[i]._primary_accession,
+        compositional_bias: dark_proteins[i]._compositional_bias,
+        membrane: dark_proteins[i]._membrane
       });
     }
   }
