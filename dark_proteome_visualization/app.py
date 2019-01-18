@@ -34,7 +34,4 @@ app.config.update(
     MAIL_PASSWORD=mail_password
 )
 
-dark_proteomes = parse_dark_proteome()
-dark_proteins = parse_dark_proteins()
-
 from . import handlers
