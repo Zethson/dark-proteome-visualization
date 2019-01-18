@@ -1,7 +1,7 @@
 pytest
-Flask
 gevent
 click
 Flask-Mail
+Flask
 python-rapidjson
 configparser
