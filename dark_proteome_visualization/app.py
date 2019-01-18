@@ -2,6 +2,9 @@ import os
 import configparser
 from flask import Flask
 
+from dark_proteome_visualization.model.parser.dark_proteins_parser import parse_dark_proteins
+from dark_proteome_visualization.model.parser.dark_proteome_parser import parse_dark_proteome
+
 CURRENT_DIR = os.path.abspath(os.getcwd())
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_PATH = os.path.join(MODULE_DIR, 'static')
@@ -21,5 +24,8 @@ app.config.update(
     MAIL_USERNAME=mail_username,
     MAIL_PASSWORD=mail_password
 )
+
+dark_proteomes = parse_dark_proteome()
+dark_proteins = parse_dark_proteins()
 
 from . import handlers
