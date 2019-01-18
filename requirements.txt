@@ -2,5 +2,5 @@ pytest
 flask
 gevent
 click
-flask-Mail
+flask_Mail
 python-rapidjson
