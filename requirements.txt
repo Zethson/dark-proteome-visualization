@@ -1,6 +1,6 @@
 pytest
-flask
+Flask
 gevent
 click
-flask_Mail
+Flask-Mail
 python-rapidjson
