@@ -1,4 +1,7 @@
 pytest
-flask
 gevent
 click
+Flask-Mail
+Flask
+python-rapidjson
+configparser

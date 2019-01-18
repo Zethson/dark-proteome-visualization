@@ -93,4 +93,8 @@ Thumbs.db
 __pycache__/
 build/
 dark_proteome_visualization.egg-info/
+venv/
+
+# Config files
+dark_proteome_visualization/static/mail.conf
 
