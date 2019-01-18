@@ -4,3 +4,4 @@ gevent
 click
 Flask-Mail
 python-rapidjson
+configparser
