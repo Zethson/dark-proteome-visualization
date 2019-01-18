@@ -1,5 +1,5 @@
 pytest
-flask
+Flask
 gevent
 click
 Flask-Mail
