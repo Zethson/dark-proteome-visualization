@@ -36,9 +36,5 @@ app.config.update(
 
 dark_proteomes = parse_dark_proteome()
 dark_proteins = parse_dark_proteins()
-LOG.info("Serializing parsed data")
-dark_proteomes_json = json.dumps(dark_proteomes, default=lambda x: x.__dict__)
-dark_proteins_json = json.dumps(dark_proteins, default=lambda x: x.__dict__)
-LOG.info("Successfully serialized parsed data")
 
 from . import handlers
