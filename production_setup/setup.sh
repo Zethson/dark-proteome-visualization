@@ -18,7 +18,7 @@ virtualenv dpenv
 
 source dpenv/bin/activate
 
-pip install gunicorn
+pip3 install gunicorn
 
 python setup.py clean --all install
 
