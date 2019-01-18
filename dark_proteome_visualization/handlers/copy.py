@@ -1,8 +1,9 @@
 import logging
-import rapidjson as json
+import json as json
 
 from flask import render_template
 
+from ..app import app
 from dark_proteome_visualization.model.parser.dark_proteins_parser import parse_dark_proteins
 from dark_proteome_visualization.model.parser.dark_proteome_parser import parse_dark_proteome
 
