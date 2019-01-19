@@ -1,9 +1,4 @@
-//console.log(dark_proteomes);
-//console.log(dark_proteins);
-
 dark_proteins.length = 100000
-
-
 
   // create custom bins
   function thresholdArray(bins, max_Value) {
@@ -14,11 +9,8 @@ dark_proteins.length = 100000
     return thresholds
   }
 
-
-
-  var darkData = {"Membrane": [], "Bias": [], "Disorder": [], "Length": []};
-  var brightData = {"Membrane": [], "Bias": [], "Disorder": [], "Length": []};
-
+  let darkData = {"Membrane": [], "Bias": [], "Disorder": [], "Length": []};
+  let brightData = {"Membrane": [], "Bias": [], "Disorder": [], "Length": []};
 
   for (i = 0; i < dark_proteins.length; i++){
     if (Number(dark_proteins[i]._darkness) > 0.5){
@@ -33,10 +25,8 @@ dark_proteins.length = 100000
     }
   };
 
-
-
 // For bin calculation
-  var valuesScalePow =  d3.scalePow()
+  let valuesScalePow =  d3.scalePow()
     .exponent(Math.E)
     .domain([0,30])
     .range([1,100]);
@@ -46,8 +36,7 @@ dark_proteins.length = 100000
     bins.push(valuesScalePow(i))
   }
 
-
-  var binsDarkData = {
+  let binsDarkData = {
     "Membrane": d3.histogram().domain([0, 100]).thresholds(bins)
     (darkData["Membrane"]),
     "Bias": d3.histogram().domain([0, 100]).thresholds(bins)
@@ -56,116 +45,106 @@ dark_proteins.length = 100000
     (darkData["Disorder"]),
   }
 
-
-  var binsBrightData = {
+  let binsBrightData = {
     "Membrane": d3.histogram().domain([0, 100]).thresholds(bins)(brightData["Membrane"]),
     "Bias": d3.histogram().domain([0, 100]).thresholds(bins)(brightData["Bias"]),
     "Disorder": d3.histogram().domain([0, 100]).thresholds(bins)(brightData["Disorder"]),
   }
 
-
-
 function butterflyChart() {
-  var returnDictionary = {};
-  var margin = {top: 60, right: 30, bottom: 60, left: 100};
-  var width = 900 - margin.left - margin.right;
-  var height = 600 - margin.top - margin.bottom;
-  var myChartWidth = width - margin.left - margin.right;
-  var myChartHeight = height - margin.top - margin.bottom;
-  var my_right = NaN;
-  var my_left = NaN;
-  var panel = NaN;
-  var zeroToggle = true;
-  var attribute = "Membrane"
+  let returnDictionary = {};
+  let margin = {top: 60, right: 30, bottom: 60, left: 100};
+  let width = 900 - margin.left - margin.right;
+  let height = 600 - margin.top - margin.bottom;
+  let myChartWidth = width - margin.left - margin.right;
+  let myChartHeight = height - margin.top - margin.bottom;
+  let my_right = NaN;
+  let my_left = NaN;
+  let panel = NaN;
+  let zeroToggle = true;
+  let attribute = "Membrane"
 
-
-
-  var xdata = ["100", "80", "60", "40", "20", "0", "20", "40", "60", "80", "100"]; // custom axis labeling, since "scaling" does not properly work for irregular axis
-  var xdata6 = ["6", "4.8", "3.6", "2.4", "1.2", "0", "1.2", "2.4", "3.6", "4.8", "6"];
+  let xdata = ["100", "80", "60", "40", "20", "0", "20", "40", "60", "80", "100"]; // custom axis labeling, since "scaling" does not properly work for irregular axis
+  let xdata6 = ["6", "4.8", "3.6", "2.4", "1.2", "0", "1.2", "2.4", "3.6", "4.8", "6"];
 
   // values Scaling for bright and dark data respectively
-  var xScaleDark  = d3.scaleLinear()
+  let xScaleDark  = d3.scaleLinear()
                         .domain([0, darkData["Membrane"].length])
                         .range([0, myChartWidth/2]);
 
-  var xScaleBright =  d3.scaleLinear()
+  let xScaleBright =  d3.scaleLinear()
                         .domain([0, brightData["Membrane"].length])
                         .range([0, myChartWidth/2]);
 
   // Scaling for Y-Axis
-  var valuesScalePowLabels =  d3.scaleLog()
+  let valuesScalePowLabels =  d3.scaleLog()
       .base(Math.E)
       .domain([1,100])
       .range([0,myChartHeight]);
 
-
-
-
-  var xScale = d3.scaleLinear()
+  let xScale = d3.scaleLinear()
       .domain([0, dark_proteins.length])
       .range([0, myChartWidth/2]);
 
   // scaling for X Axis (custom), dummy variable since a scaling is needed for Axis creation
-  var forXAxis = d3.scaleLinear()
+  let forXAxis = d3.scaleLinear()
       .domain([0,10])
       .range([0, myChartWidth]);
 
-  var yScale = d3.scaleLinear()
+  let yScale = d3.scaleLinear()
       .domain([0, binsBrightData["Membrane"].length])
       .range([0, myChartHeight]);
 
 // Creates panel
   function buildPanel(yScale, myTicks){
-      var svg = d3.select("#content").append("svg")
+      let svg = d3.select("#content_Steffen").append("svg")
                  .attr("width", width)
                  .attr("height", height);
 
-      var panel = svg.append("g")
+      let panel = svg.append("g")
                       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       // Y Axis in the middle of the plot without ticks and labels, since the labels are covered by the bars on both sides
       panel.append("g")
-        .attr("class", "axis axisButterfly")
+        .attr("class", "axis_SL axisButterfly_SL")
         .attr("transform", "translate(" + myChartWidth/2 + ",0)")
         .call(d3.axisLeft(yScale).tickValues([]))
       // Y Axis on the left of the plot with ticks and labels
       panel.append("g")
-        .attr("class", "yAxis axisButterfly")
+        .attr("class", "yAxis_SL axisButterfly_SL")
         .attr("transform", "translate(" + 0 + ",0)")
         .call(d3.axisLeft(valuesScalePowLabels).tickValues(myTicks))
       // X Axis on the bottom of the plot with custom tick labeling
       panel.append("g")
-        .attr("class", "xAxis axisButterfly")
+        .attr("class", "xAxis_SL axisButterfly_SL")
         .attr("transform", "translate(0," + myChartHeight + ")")
         .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata[d]})); // xData contains the custom labeling
 
-
         // X-Axis labeling
       panel.append("text")
-          .attr("class", "Xaxis-label")
+          .attr("class", "Xaxis-label_SL")
       	  .attr("transform",
       			"translate(" + (myChartWidth/2 ) + " ," + (myChartHeight + 40) + ")")
       	  .text("Percentage of Total");
 
         // Y-Axis labeling
       	panel.append("text")
-            .attr("class", "Yaxis-label")
+            .attr("class", "Yaxis-label_SL")
       		  .attr("transform", "rotate(-90)")
       		  .attr("y", -30)
       		  .attr("x", 60 - (height / 2)  )
       		  .text("Membrane" + " [%]");
         panel.append("text")
-            .attr("class", "descriptionHeader darkH")
+            .attr("class", "descriptionHeader_SL darkH_SL")
             .attr("transform",
               "translate(" + (myChartWidth/4 ) + " ," + (-20) + ")")
             .text("Dark Proteome");
         panel.append("text")
-            .attr("class", "descriptionHeader brightH")
+            .attr("class", "descriptionHeader_SL brightH_SL")
             .attr("transform",
               "translate(" + (myChartWidth/4 * 3) + " ," + (-20) + ")")
             .text("Bright Proteome");
       return panel;
       }
-
 
       // Updates for Graph on Button press
       returnDictionary["update1"] = function myUpdate(){
@@ -182,7 +161,6 @@ function butterflyChart() {
         updateGraph();
         }
 
-
         returnDictionary["update5"] = function myUpdate(){
           if (zeroToggle) {
             zeroToggle = false;
@@ -193,23 +171,22 @@ function butterflyChart() {
           updateGraph();
           }
 
-
       // function is called when button is pressed. The respective attribute for
       // the change is handed
       function updateGraph(){
         if (zeroToggle == false){
-            var myBrightData = binsBrightData[attribute].slice(1,-1)
-            var myDarkData = binsDarkData[attribute].slice(1,-1)
-            panel.selectAll("g.xAxis")
+            myBrightData = binsBrightData[attribute].slice(1,-1)
+            myDarkData = binsDarkData[attribute].slice(1,-1)
+            panel.selectAll("g.xAxis_SL")
               .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata6[d]}));
-            var scalingFactor = 100/6;
+            scalingFactor = 100/6;
         }
         else{
-          var myBrightData = binsBrightData[attribute]
-          var myDarkData = binsDarkData[attribute]
-          panel.selectAll("g.xAxis")
+          myBrightData = binsBrightData[attribute]
+          myDarkData = binsDarkData[attribute]
+          panel.selectAll("g.xAxis_SL")
             .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata[d]}));
-          var scalingFactor = 1;
+          scalingFactor = 1;
         }
 
         my_right.data(myBrightData) // bright data is updated
@@ -225,20 +202,18 @@ function butterflyChart() {
             .attr("x", function(d, i) {return myChartWidth/2 - (xScaleDark(d.length) * scalingFactor) })
             .attr("y", function(d, i) {return yScale(i)})
             .attr("width", function(d, a) {return xScaleDark(d.length) * scalingFactor});
-        panel.select("text.Yaxis-label")
+        panel.select("text.Yaxis-label_SL")
           .text(attribute + " [%]")
       }
 
-
-
     returnDictionary["init"] = function () {
-      var myTicks = [2,5,10,20,40,80];
+      let myTicks = [2,5,10,20,40,80];
             panel = buildPanel(yScale, myTicks);
             my_right = panel.selectAll(".bar")
                      .data(binsBrightData[attribute])
             	        .enter()
                       .append("rect")
-                      .attr("class", "brightBar")
+                      .attr("class", "brightBar_SL")
             		      .attr("x", function(d, i) {return myChartWidth/2})
             		      .attr("y", function(d, i) {return yScale(i)})
             		      .attr("width", function(d, a) {return xScaleBright(d.length) })
@@ -248,7 +223,7 @@ function butterflyChart() {
                      .data(binsDarkData[attribute])
                       .enter()
                       .append("rect")
-                      .attr("class", "darkBar")
+                      .attr("class", "darkBar_SL")
                       .attr("x", function(d, i) {return myChartWidth/2 - xScaleDark(d.length) })
                       .attr("y", function(d, i) {return yScale(i)})
                       .attr("width", function(d, a) {return xScaleDark(d.length) })
@@ -256,7 +231,6 @@ function butterflyChart() {
     	};
   return returnDictionary;
 };
-
 
 window.onload = function() {
   myPlot = butterflyChart();

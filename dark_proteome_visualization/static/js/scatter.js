@@ -1,6 +1,3 @@
-
-
-
 data_virus = []
 data_eukaryota = []
 data_bacteria = []
@@ -23,13 +20,13 @@ for (i = 0; i < dark_proteins.length; i++){
 }
 
 // Options for the plot (domains and attributes)
-var domainMap = { "Eukaryota": data_eukaryota,
+let domainMap = { "Eukaryota": data_eukaryota,
                   "Viruses": data_virus,
                   "Bacteria": data_bacteria,
                   "Archaea": data_archaea
                 }
 
-var attributeMap = {"Membrane": "_membrane",
+let attributeMap = {"Membrane": "_membrane",
                     "Disorder": "_disorder",
                     "Compositional bias": "_compositional_bias"
                     }
@@ -37,42 +34,42 @@ var attributeMap = {"Membrane": "_membrane",
 
 // Main function
 function createDensityPlot(domainMap, attributeMap){
-// Important variables
-  var margin = {top: 70, right: 70, bottom: 170, left: 70};
-  var svgHeight = 800;
-  var svgWidth = 800;
-  var myChartWidth = svgWidth - margin.left - margin.right;
-  var myChartHeight = svgHeight - margin.top - margin.bottom;
-  var dot_radius = 3;
-  var currentAttribute = NaN;
-  var currentDomain = NaN;
+// Important letiables
+  let margin = {top: 70, right: 70, bottom: 170, left: 70};
+  let svgHeight = 800;
+  let svgWidth = 800;
+  let myChartWidth = svgWidth - margin.left - margin.right;
+  let myChartHeight = svgHeight - margin.top - margin.bottom;
+  let dot_radius = 3;
+  let currentAttribute = NaN;
+  let currentDomain = NaN;
 
 
   // create scale objects
-  var xScale = d3.scaleLinear()
+  let xScale = d3.scaleLinear()
     .domain([0, 100])
     .range([0, myChartWidth]);
-  var yScale = d3.scaleLinear()
+  let yScale = d3.scaleLinear()
     .domain([0, 100])
     .range([myChartHeight, 0]);
 
 
 
   // create axis objects
-  var xAxis = d3.axisBottom(xScale)
+  let xAxis = d3.axisBottom(xScale)
     .ticks(10, "s");
-  var yAxis = d3.axisLeft(yScale)
+  let yAxis = d3.axisLeft(yScale)
     .ticks(10, "s");
 
 
 
-    var svg = d3.select('#content').append("svg")
+    let svg = d3.select('#content_Steffen').append("svg")
           .attr("width", svgWidth)
           .attr("height", svgHeight)
 
 
 // Creates and updates the complete chart
-var updateChart = function(data, key){
+let updateChart = function(data, key){
 
   // create a clipping region
 svg.append("defs").append("clipPath")
@@ -82,18 +79,18 @@ svg.append("defs").append("clipPath")
     .attr("height", myChartHeight);
 
 
-var div = d3.select("#content").append("div")
-    .attr("class", "tooltip");
+let div = d3.select("#content_Steffen").append("div")
+    .attr("class", "tooltip_SL");
 
 
 // Place Axis
-var g_XAxis = svg.append('g')
+let g_XAxis = svg.append('g')
   .attr('transform', 'translate(' + margin.left + ',' + (margin.top + myChartHeight) + ')')
-  .attr("class", "axisScatter")
+  .attr("class", "axisScatter_SL")
   .call(xAxis);
-var g_YAxis = svg.append('g')
+let g_YAxis = svg.append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-  .attr("class", "axisScatter")
+  .attr("class", "axisScatter_SL")
   .call(yAxis);
 
 
@@ -101,7 +98,7 @@ var g_YAxis = svg.append('g')
 	svg.append("text")
 	  .attr("transform",
 			"translate(" + (svgWidth/2 ) + " ," + (myChartHeight + 110) + ")")
-    .attr("class", 'axisLabel')
+    .attr("class", 'axisLabel_SL')
 	  .text(key + " [%]");
 
   // Y-Axis labeling
@@ -109,22 +106,22 @@ var g_YAxis = svg.append('g')
 		  .attr("transform", "rotate(-90)")
 		  .attr("y", 30)
 		  .attr("x",0 - (svgHeight / 2) + 50)
-      .attr("class", 'axisLabel')
+      .attr("class", 'axisLabel_SL')
 		  .text("Darkness [%]");
 
 
 
   // encapsulating points and invisible background (+ clipping)
-  var plot_surface = svg.append("g")
+  let plot_surface = svg.append("g")
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     .attr("clip-path", "url(#clip)")
-    .classed("plot_surface", true);
+    .classed("plot_surface_SL", true);
 
 
 
 
   // Pan and zoom
-var zoom = d3.zoom()
+let zoom = d3.zoom()
     .scaleExtent([0.95, 10])
     //.translateExtent([[-20, -20], [620, 620]])
     .on("zoom", zoomed);
@@ -132,16 +129,16 @@ var zoom = d3.zoom()
 
     //invisible background rectangle for zoom and dragging
     plot_surface.append("rect")
-    .attr("class", "zoomRect")
+    .attr("class", "zoomRect_SL")
     .attr("width", myChartWidth)
     .attr("height", myChartHeight)
     //.style("fill", "transparent")
 
   // actual datapoints
-  var points = plot_surface.selectAll(".dot")
+  let points = plot_surface.selectAll(".dot")
         .data(data)
         .enter().append("circle")
-        .classed("dot", true)
+        .classed("dot_SL", true)
         .attr('cx', function(d) {return xScale(Number(d[attributeMap[key]]))})
         .attr('cy', function(d) {return yScale(Number(d["_darkness"]) * 100)}) // darkness is between 0 and 1, whereas the rest is 0 to 100 --> scaling times 100
         .attr('r', dot_radius)
@@ -153,7 +150,7 @@ var zoom = d3.zoom()
               .style("opacity", 1);
             div.html("ID: " + d._primary_accession + "<br>" + "Kingdom: " + d._kingdom) // Tooltip
              .style("left", (d3.event.pageX) + "px")
-             .style("top", (d3.event.pageY - 28) + "px");})
+             .style("top", (d3.event.pageY - 30) + "px");})
         .on("mouseout", function(d) {
             div.transition()
              .duration(400)
@@ -166,8 +163,8 @@ var zoom = d3.zoom()
   // Zoom function
   function zoomed() {
 // create new scale ojects based on event
-    var updated_xScale = d3.event.transform.rescaleX(xScale);
-    var updated_yScale = d3.event.transform.rescaleY(yScale);
+    let updated_xScale = d3.event.transform.rescaleX(xScale);
+    let updated_yScale = d3.event.transform.rescaleY(yScale);
 // update axes
     g_XAxis.call(xAxis.scale(updated_xScale));
     g_YAxis.call(yAxis.scale(updated_yScale));
@@ -182,16 +179,16 @@ var zoom = d3.zoom()
 }
 
     // create dropdon menu for attribute
-    var dropdownChangeAttribute = function() {
-        var newAttribute = d3.select(this).property('value');
+    let dropdownChangeAttribute = function() {
+        let newAttribute = d3.select(this).property('value');
         currentAttribute = newAttribute;
         svg.selectAll("*").remove();
         updateChart(domainMap[currentDomain] ,newAttribute); // update chart
     };
 
-    var myAttributes = Object.keys(attributeMap); // list of attribute keys
+    let myAttributes = Object.keys(attributeMap); // list of attribute keys
 
-    var dropdownAttribute = d3.select("#my-menu-attribute")
+    let dropdownAttribute = d3.select("#my-menu-attribute")
                     .insert("select", "svg")
                     .on("change", dropdownChangeAttribute);
 
@@ -206,17 +203,17 @@ var zoom = d3.zoom()
 
 
       // create dropdon menu for domain data set
-    var dropdownChangeDomain = function() {
-        var newDomain = d3.select(this).property('value');
+    let dropdownChangeDomain = function() {
+        let newDomain = d3.select(this).property('value');
         currentDomain = newDomain;
-        var newData   = domainMap[newDomain];
+        let newData   = domainMap[newDomain];
         svg.selectAll("*").remove();
         updateChart(newData, currentAttribute);// update chart
     };
 
-    var myDomains = Object.keys(domainMap);
+    let myDomains = Object.keys(domainMap);
 
-    var dropdownDomain = d3.select("#my-menu-domain")
+    let dropdownDomain = d3.select("#my-menu-domain")
                     .insert("select", "svg")
                     .on("change", dropdownChangeDomain);
 
@@ -230,7 +227,7 @@ var zoom = d3.zoom()
     currentDomain = "Eukaryota" // initial Values for the Scatter plot
     currentAttribute = "Membrane"
 
-    var initialData = domainMap[currentDomain];
+    let initialData = domainMap[currentDomain];
     updateChart(initialData, currentAttribute);
 
 
