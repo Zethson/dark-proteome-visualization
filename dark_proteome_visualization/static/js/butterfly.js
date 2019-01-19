@@ -1,10 +1,10 @@
-const my_dark_proteins = dark_proteins
-my_dark_proteins.length = 100000
+const my_dark_proteins = dark_proteins;
+my_dark_proteins.length = 10000;
 
   // create custom bins
   function thresholdArray(bins, max_Value) {
-    thresholds = []
-    for (i = max_Value/bins; i < max_Value; i = i + max_Value/bins){
+    thresholds = [];
+    for (let i = max_Value/bins; i < max_Value; i = i + max_Value/bins){
       thresholds.push(i)
     }
     return thresholds
@@ -15,25 +15,24 @@ my_dark_proteins.length = 100000
 
   for (i = 0; i < my_dark_proteins.length; i++){
     if (Number(my_dark_proteins[i]._darkness) > 0.5){
-      darkData["Membrane"].push(Number(my_dark_proteins[i]._membrane))
-      darkData["Bias"].push(Number(my_dark_proteins[i]._compositional_bias))
+      darkData["Membrane"].push(Number(my_dark_proteins[i]._membrane));
+      darkData["Bias"].push(Number(my_dark_proteins[i]._compositional_bias));
       darkData["Disorder"].push(Number(my_dark_proteins[i]._disorder))
     }
     else{
-      brightData["Membrane"].push(Number(my_dark_proteins[i]._membrane))
-      brightData["Bias"].push(Number(my_dark_proteins[i]._compositional_bias))
+      brightData["Membrane"].push(Number(my_dark_proteins[i]._membrane));
+      brightData["Bias"].push(Number(my_dark_proteins[i]._compositional_bias));
       brightData["Disorder"].push(Number(my_dark_proteins[i]._disorder))
     }
-  };
-
+  }
 // For bin calculation
   let valuesScalePow =  d3.scalePow()
     .exponent(Math.E)
     .domain([0,30])
     .range([1,100]);
 
-  bins = []
-  for (i = 1; i <= 30; i++){
+  bins = [];
+  for (let i = 1; i <= 30; i++){
     bins.push(valuesScalePow(i))
   }
 
@@ -44,13 +43,13 @@ my_dark_proteins.length = 100000
     (darkData["Bias"]),
     "Disorder": d3.histogram().domain([0, 100]).thresholds(bins)
     (darkData["Disorder"]),
-  }
+  };
 
   let binsBrightData = {
     "Membrane": d3.histogram().domain([0, 100]).thresholds(bins)(brightData["Membrane"]),
     "Bias": d3.histogram().domain([0, 100]).thresholds(bins)(brightData["Bias"]),
     "Disorder": d3.histogram().domain([0, 100]).thresholds(bins)(brightData["Disorder"]),
-  }
+  };
 
 function butterflyChart() {
   let returnDictionary = {};
@@ -63,7 +62,7 @@ function butterflyChart() {
   let my_left = NaN;
   let panel = NaN;
   let zeroToggle = true;
-  let attribute = "Membrane"
+  let attribute = "Membrane";
 
   let xdata = ["100", "80", "60", "40", "20", "0", "20", "40", "60", "80", "100"]; // custom axis labeling, since "scaling" does not properly work for irregular axis
   let xdata6 = ["6", "4.8", "3.6", "2.4", "1.2", "0", "1.2", "2.4", "3.6", "4.8", "6"];
@@ -108,12 +107,12 @@ function butterflyChart() {
       panel.append("g")
         .attr("class", "axis_SL axisButterfly_SL")
         .attr("transform", "translate(" + myChartWidth/2 + ",0)")
-        .call(d3.axisLeft(yScale).tickValues([]))
+        .call(d3.axisLeft(yScale).tickValues([]));
       // Y Axis on the left of the plot with ticks and labels
       panel.append("g")
         .attr("class", "yAxis_SL axisButterfly_SL")
         .attr("transform", "translate(" + 0 + ",0)")
-        .call(d3.axisLeft(valuesScalePowLabels).tickValues(myTicks))
+        .call(d3.axisLeft(valuesScalePowLabels).tickValues(myTicks));
       // X Axis on the bottom of the plot with custom tick labeling
       panel.append("g")
         .attr("class", "xAxis_SL axisButterfly_SL")
@@ -149,18 +148,18 @@ function butterflyChart() {
 
       // Updates for Graph on Button press
       returnDictionary["update_membrane"] = function myUpdate(){
-        attribute = "Membrane"
+        attribute = "Membrane";
         updateGraph();
-        }
+        };
       returnDictionary["update_bias"] = function myUpdate(){
-        attribute = "Bias"
+        attribute = "Bias";
         updateGraph();
-        }
+        };
 
       returnDictionary["update_disorder"] = function myUpdate(){
-        attribute = "Disorder"
+        attribute = "Disorder";
         updateGraph();
-        }
+        };
 
         returnDictionary["update_zeros"] = function myUpdate(){
           if (zeroToggle) {
@@ -170,21 +169,21 @@ function butterflyChart() {
             zeroToggle = true;
           }
           updateGraph();
-          }
+          };
 
       // function is called when button is pressed. The respective attribute for
       // the change is handed
       function updateGraph(){
         if (zeroToggle == false){
-            myBrightData = binsBrightData[attribute].slice(1,-1)
-            myDarkData = binsDarkData[attribute].slice(1,-1)
+            myBrightData = binsBrightData[attribute].slice(1,-1);
+            myDarkData = binsDarkData[attribute].slice(1,-1);
             panel.selectAll("g.xAxis_SL")
               .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata6[d]}));
             scalingFactor = 100/6;
         }
         else{
-          myBrightData = binsBrightData[attribute]
-          myDarkData = binsDarkData[attribute]
+          myBrightData = binsBrightData[attribute];
+          myDarkData = binsDarkData[attribute];
           panel.selectAll("g.xAxis_SL")
             .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata[d]}));
           scalingFactor = 1;
@@ -231,8 +230,7 @@ function butterflyChart() {
                       .attr("height", myChartHeight/binsBrightData[attribute].length);
     	};
   return returnDictionary;
-};
-
+}
 window.onload = function() {
   myPlot = butterflyChart();
   myPlot.init();
