@@ -3,55 +3,25 @@
   let chartWidth, chartHeight;
   let margin;
 
+  let selected;
   let data;
 
   let createPlot = function () {
-    
-    loadData("proteome")
-    //loadData("protein")
     setSize();
-    drawChart(data);
-  }
-
-function loadData(type) {
-  if (type == "proteome") {
-    data = [];
-    for (let i = 0; i < dark_proteomes.length; i++) {
-      data.push({
-        uncertainty : dark_proteomes[i]._uncertainty,
-        length : dark_proteomes[i]._length,
-        disorder: dark_proteomes[i]._disorder,
-        primary_accession: dark_proteomes[i]._primary_accession,
-        compositional_bias: dark_proteomes[i]._compositional_bias,
-        membrane: dark_proteomes[i]._membrane
-      });
-    }
-  } else {
-    data = [];
-    for (let i = 0; i < dark_proteins.length; i++) {
-      data.push({
-        domain : dark_proteins[i]._domain,
-        kingdom : dark_proteins[i]._kingdom,
-        organism_id : dark_proteins[i]._organism_id,
-        darkness : dark_proteins[i]._darkness,
-        length : dark_proteins[i]._length,
-        disorder: dark_proteins[i]._disorder,
-        primary_accession: dark_proteins[i]._primary_accession,
-        compositional_bias: dark_proteins[i]._compositional_bias,
-        membrane: dark_proteins[i]._membrane
-      });
-    }
+    drawChart(dark_proteomes);
   }
 
 }
 
 function drawChart(data) {
-  let xAxis = d3.scaleBand().range([0, width], 1),
+  let xAxis = d3.scaleBand().range([0, chartWidth], 1),
       yAxis = {},
       line = d3.line(),
       axis = d3.axisLeft(),
       keys = d3.keys(data[0])
     ;
+  selected = keys.map(function(p) { return [0,0]; });
+
 
   // Get axis, create scales
   xAxis.domain(keys);
@@ -60,12 +30,12 @@ function drawChart(data) {
     yAxis[keys[i]] = d3.scaleLinear().domain(d3.extent(data, function(obj) {
       let val = +obj[keys[i]];
       return (isNaN(val)) ? 1 : val;
-    })).range([height, 0]);
+    })).range([chartHeight, 0]);
   }
   console.log(yAxis);
 
   // Draw lines
-  svg.append("g")
+  lines = chartLayer.append("g")
     .selectAll("path")
       .data(data)
         .enter()
@@ -78,7 +48,7 @@ function drawChart(data) {
         .attr("fill", "none");
  console.log("Plotting executed");
 
-  var g = svg.selectAll(".dim")
+  var g = chartLayer.selectAll(".dim")
       .data(keys)
     .enter().append("g")
       .attr("transform", function(d) { return "translate(" + xAxis(d) + ")"; });
@@ -90,16 +60,45 @@ function drawChart(data) {
       .attr("y", -10)
       .text(function(d) { return d; });
 
+  g.append("g")
+      .attr("class", "brush")
+      .each(function(d) {
+        d3.select(this).call(yAxis[d].brush = d3.brushY().extent([[-10, 0], [10, chartHeight]])
+          .on("brush start", selectInit)
+          .on("brush", selectionOnAxis));
+      })
+    .selectAll("rect")
+      .attr("x", -10)
+      .attr("width", 15);
+
+  function selectInit() {
+    d3.event.sourceEvent.stopPropagation();
+  }
+  
+  function selectionOnAxis() {
+    for (let i = 0; i < keys.length; ++i) {
+      if (d3.event.target==yAxis[keys[i]].brush) {
+        selected[i] = d3.event.selection.map(yAxis[keys[i]].invert, yAxis[keys[i]]);
+      }
+    }
+  
+    lines.style("display", function(d) {
+      return keys.every(function(p, i) {
+        if (selected[i][0] == 0 && selected[i][0] == 0) {
+          return true;
+        } else {
+          return selected[i][1] <= d[p] && d[p] <= selected[i][0];
+        }
+      }) ? null : "none";
+    });
+  }
 }
 
-  /**
-   * defines sizes and margins for the svg
-   */
   function setSize() {
       width = 1200;
       height = 660;
 
-      margin = {top: 0, left: 0, bottom: 0, right: 0};
+      margin = {top: 50, left: 50, bottom: 50, right: 50};
 
       chartWidth = width - (margin.left + margin.right);
       chartHeight = height - (margin.top + margin.bottom);
