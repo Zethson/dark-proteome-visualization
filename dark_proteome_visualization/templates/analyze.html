@@ -45,15 +45,15 @@
             <p>Here is a butterfly plot. Description ..........</p>
             <p>Data Interpretation ..........</p>
                 <div id="container">
-                    <div id="content_Steffen"></div>
+                    <div id="content_butterfly"></div>
                     <script type="text/javascript">
                         var dark_proteomes = {{ dark_proteomes | safe }};
                         var dark_proteins = {{ dark_proteins | safe }};
                     </script>
-                    <button type="button" id="button1">Membrane</button>
-                    <button type="button" id="button2">Bias</button>
-                    <button type="button" id="button3">Disorder</button>
-                    <button type="button" id="button5">Include/Exclude zeros</button>
+                    <button type="button" id="button_membrane">Membrane</button>
+                    <button type="button" id="button_bias">Bias</button>
+                    <button type="button" id="button_disorder">Disorder</button>
+                    <button type="button" id="button_zeros">Include/Exclude zeros</button>
 
                     {% block content %}
                       <script src={{ url_for('static',filename='js/butterfly.js') }}></script>

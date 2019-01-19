@@ -1,4 +1,5 @@
-dark_proteins.length = 100000
+const my_dark_proteins = dark_proteins
+my_dark_proteins.length = 100000
 
   // create custom bins
   function thresholdArray(bins, max_Value) {
@@ -12,16 +13,16 @@ dark_proteins.length = 100000
   let darkData = {"Membrane": [], "Bias": [], "Disorder": [], "Length": []};
   let brightData = {"Membrane": [], "Bias": [], "Disorder": [], "Length": []};
 
-  for (i = 0; i < dark_proteins.length; i++){
-    if (Number(dark_proteins[i]._darkness) > 0.5){
-      darkData["Membrane"].push(Number(dark_proteins[i]._membrane))
-      darkData["Bias"].push(Number(dark_proteins[i]._compositional_bias))
-      darkData["Disorder"].push(Number(dark_proteins[i]._disorder))
+  for (i = 0; i < my_dark_proteins.length; i++){
+    if (Number(my_dark_proteins[i]._darkness) > 0.5){
+      darkData["Membrane"].push(Number(my_dark_proteins[i]._membrane))
+      darkData["Bias"].push(Number(my_dark_proteins[i]._compositional_bias))
+      darkData["Disorder"].push(Number(my_dark_proteins[i]._disorder))
     }
     else{
-      brightData["Membrane"].push(Number(dark_proteins[i]._membrane))
-      brightData["Bias"].push(Number(dark_proteins[i]._compositional_bias))
-      brightData["Disorder"].push(Number(dark_proteins[i]._disorder))
+      brightData["Membrane"].push(Number(my_dark_proteins[i]._membrane))
+      brightData["Bias"].push(Number(my_dark_proteins[i]._compositional_bias))
+      brightData["Disorder"].push(Number(my_dark_proteins[i]._disorder))
     }
   };
 
@@ -83,7 +84,7 @@ function butterflyChart() {
       .range([0,myChartHeight]);
 
   let xScale = d3.scaleLinear()
-      .domain([0, dark_proteins.length])
+      .domain([0, my_dark_proteins.length])
       .range([0, myChartWidth/2]);
 
   // scaling for X Axis (custom), dummy variable since a scaling is needed for Axis creation
@@ -97,7 +98,7 @@ function butterflyChart() {
 
 // Creates panel
   function buildPanel(yScale, myTicks){
-      let svg = d3.select("#content_Steffen").append("svg")
+      let svg = d3.select("#content_butterfly").append("svg")
                  .attr("width", width)
                  .attr("height", height);
 
@@ -147,21 +148,21 @@ function butterflyChart() {
       }
 
       // Updates for Graph on Button press
-      returnDictionary["update1"] = function myUpdate(){
+      returnDictionary["update_membrane"] = function myUpdate(){
         attribute = "Membrane"
         updateGraph();
         }
-      returnDictionary["update2"] = function myUpdate(){
+      returnDictionary["update_bias"] = function myUpdate(){
         attribute = "Bias"
         updateGraph();
         }
 
-      returnDictionary["update3"] = function myUpdate(){
+      returnDictionary["update_disorder"] = function myUpdate(){
         attribute = "Disorder"
         updateGraph();
         }
 
-        returnDictionary["update5"] = function myUpdate(){
+        returnDictionary["update_zeros"] = function myUpdate(){
           if (zeroToggle) {
             zeroToggle = false;
           }
@@ -235,8 +236,8 @@ function butterflyChart() {
 window.onload = function() {
   myPlot = butterflyChart();
   myPlot.init();
-  document.getElementById('button1').addEventListener("click", myPlot.update1); // Membrane
-  document.getElementById('button2').addEventListener("click", myPlot.update2); // Bias
-  document.getElementById('button3').addEventListener("click", myPlot.update3); // Disorder
-  document.getElementById('button5').addEventListener("click", myPlot.update5); // Include/Exclude zeros
+  document.getElementById('button_membrane').addEventListener("click", myPlot.update_membrane); // Membrane
+  document.getElementById('button_bias').addEventListener("click", myPlot.update_bias); // Bias
+  document.getElementById('button_disorder').addEventListener("click", myPlot.update_disorder); // Disorder
+  document.getElementById('button_zeros').addEventListener("click", myPlot.update_zeros); // Include/Exclude zeros
 };

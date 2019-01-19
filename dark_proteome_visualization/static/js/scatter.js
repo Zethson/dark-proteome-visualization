@@ -31,7 +31,6 @@ let attributeMap = {"Membrane": "_membrane",
                     "Compositional bias": "_compositional_bias"
                     }
 
-
 // Main function
 function createDensityPlot(domainMap, attributeMap){
 // Important letiables
@@ -44,7 +43,6 @@ function createDensityPlot(domainMap, attributeMap){
   let currentAttribute = NaN;
   let currentDomain = NaN;
 
-
   // create scale objects
   let xScale = d3.scaleLinear()
     .domain([0, 100])
@@ -53,20 +51,15 @@ function createDensityPlot(domainMap, attributeMap){
     .domain([0, 100])
     .range([myChartHeight, 0]);
 
-
-
   // create axis objects
   let xAxis = d3.axisBottom(xScale)
     .ticks(10, "s");
   let yAxis = d3.axisLeft(yScale)
     .ticks(10, "s");
 
-
-
-    let svg = d3.select('#content_Steffen').append("svg")
-          .attr("width", svgWidth)
-          .attr("height", svgHeight)
-
+  let svg = d3.select('#content_scatter').append("svg")
+        .attr("width", svgWidth)
+        .attr("height", svgHeight)
 
 // Creates and updates the complete chart
 let updateChart = function(data, key){
@@ -78,10 +71,8 @@ svg.append("defs").append("clipPath")
     .attr("width", myChartWidth)
     .attr("height", myChartHeight);
 
-
-let div = d3.select("#content_Steffen").append("div")
+let div = d3.select("#content_scatter").append("div")
     .attr("class", "tooltip_SL");
-
 
 // Place Axis
 let g_XAxis = svg.append('g')
@@ -92,7 +83,6 @@ let g_YAxis = svg.append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
   .attr("class", "axisScatter_SL")
   .call(yAxis);
-
 
   // X-Axis labeling
 	svg.append("text")
@@ -109,30 +99,24 @@ let g_YAxis = svg.append('g')
       .attr("class", 'axisLabel_SL')
 		  .text("Darkness [%]");
 
-
-
   // encapsulating points and invisible background (+ clipping)
   let plot_surface = svg.append("g")
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
     .attr("clip-path", "url(#clip)")
     .classed("plot_surface_SL", true);
 
-
-
-
   // Pan and zoom
-let zoom = d3.zoom()
+  let zoom = d3.zoom()
     .scaleExtent([0.95, 10])
     //.translateExtent([[-20, -20], [620, 620]])
     .on("zoom", zoomed);
 
-
-    //invisible background rectangle for zoom and dragging
-    plot_surface.append("rect")
-    .attr("class", "zoomRect_SL")
-    .attr("width", myChartWidth)
-    .attr("height", myChartHeight)
-    //.style("fill", "transparent")
+  //invisible background rectangle for zoom and dragging
+  plot_surface.append("rect")
+  .attr("class", "zoomRect_SL")
+  .attr("width", myChartWidth)
+  .attr("height", myChartHeight)
+  //.style("fill", "transparent")
 
   // actual datapoints
   let points = plot_surface.selectAll(".dot")
@@ -159,23 +143,18 @@ let zoom = d3.zoom()
   .call(zoom)// call zoom
   .call(zoom.transform, d3.zoomIdentity.translate(10, 5).scale(0.97)); // set inital zoom level
 
-
   // Zoom function
   function zoomed() {
-// create new scale ojects based on event
+    // create new scale ojects based on event
     let updated_xScale = d3.event.transform.rescaleX(xScale);
     let updated_yScale = d3.event.transform.rescaleY(yScale);
-// update axes
+    // update axes
     g_XAxis.call(xAxis.scale(updated_xScale));
     g_YAxis.call(yAxis.scale(updated_yScale));
     points.data(data)
      .attr('cx', function(d) {return updated_xScale(Number(d[attributeMap[key]]))})
      .attr('cy', function(d) {return updated_yScale(Number(d["_darkness"]) * 100)});
     }
-
-
-
-
 }
 
     // create dropdon menu for attribute
@@ -198,10 +177,6 @@ let zoom = d3.zoom()
       .attr("value", function (d) { return d; })
       .text(function (d) {return d;});
 
-
-
-
-
       // create dropdon menu for domain data set
     let dropdownChangeDomain = function() {
         let newDomain = d3.select(this).property('value');
@@ -223,13 +198,11 @@ let zoom = d3.zoom()
       .attr("value", function (d) { return d; })
       .text(function (d) {return d});
 
-
     currentDomain = "Eukaryota" // initial Values for the Scatter plot
     currentAttribute = "Membrane"
 
     let initialData = domainMap[currentDomain];
     updateChart(initialData, currentAttribute);
-
 
 };
 
