@@ -13,6 +13,7 @@
     <noscript>
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}"/>
     </noscript>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/scatterButterfly.css') }}"/>
     <script src="{{ url_for('static', filename='assets/js/d3.min.js') }}"></script>
 </head>
 <body class="is-preload">
@@ -40,23 +41,25 @@
             <h1 class="major">Analyze the Dark Proteome</h1>
             <span class="image fit"><img src="{{ url_for('static', filename='images/rsz_lappalainen_proteiini.jpg') }}"
                                          alt=""/></span>
-            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis
-                dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
-                Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia
-                malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien
-                risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit
-                tristique.</p>
-            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet
-                dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo
-                mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis
-                elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
-            <div id="container">
-                <div id="content"></div>
+           <h2 >Butterfly plot</h2>
+            <p>Here is a butterfly plot. Description ..........</p>
+            <p>Data Interpretation ..........</p>
+                <div id="container">
+                    <div id="content_butterfly"></div>
+                    <script type="text/javascript">
+                        var dark_proteomes = {{ dark_proteomes | safe }};
+                        var dark_proteins = {{ dark_proteins | safe }};
+                    </script>
+                    <button type="button" id="button_membrane">Membrane</button>
+                    <button type="button" id="button_bias">Bias</button>
+                    <button type="button" id="button_disorder">Disorder</button>
+                    <button type="button" id="button_zeros">Include/Exclude zeros</button>
 
-                {% block content %}
-                    <script src={{ url_for('static',filename='js/particles.js') }}></script>
-                {% endblock %}
-            </div>
+                    {% block content %}
+                      <script src={{ url_for('static',filename='js/butterfly.js') }}></script>
+                    {% endblock %}
+
+                </div>
 
         </div>
     </section>
