@@ -10,7 +10,7 @@ from dark_proteome_visualization.model.parser.dark_proteome_parser import parse_
 console = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 console.setFormatter(formatter)
-LOG = logging.getLogger("Copy")
+LOG = logging.getLogger("Explore")
 LOG.addHandler(console)
 LOG.setLevel(logging.INFO)
 
