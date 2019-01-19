@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="http://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
 </body>
@@ -74,7 +74,6 @@
             display: inline-block;
             min-width: 150px;
             padding: 10px;
-            /*border-radius: 3px;*/
             background: rgba(0,0,0,0.8);
             color: #fff;
         }
@@ -106,7 +105,9 @@
             <h1 class="major">About the Dark Proteome</h1>
             <span class="image fit"><img src="{{ url_for('static', filename='images/rsz_lappalainen_proteiini.jpg') }}"
                                          alt=""/></span>
-            <p>Text goes here.</p>
+            <p>There are distributions of length, disorder and darkness of the proteins for different levels of aggregation 
+		    (organism, kingdom, domain). This provides an overview of dataset, which include approximately 550.000 
+		    proteins from the SwissProt Database.</p>
             <div id="container">
                 <div id="content"></div>
 <div id="root">
