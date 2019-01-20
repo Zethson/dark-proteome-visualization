@@ -18,8 +18,14 @@ function drawChart(data) {
       yAxis = {},  // this maps the attribute name to it's axis
       line = d3.line(),
       axis = d3.axisLeft(),
-      keys = d3.keys(data[0])
-    ;
+      keys = d3.keys(data[0]);  // array with names of attributes
+  // Delete non-numeric keys
+  let index = keys.indexOf('_primary_accession');
+  if (index > -1) {
+    keys.splice(index, 1);
+  }
+
+  // selected map's the selected value-ranges of the attributes
   selected = keys.map(function(p) { return [0,0]; });
 
   // Get axis, create scales
@@ -27,7 +33,7 @@ function drawChart(data) {
   for (let i = 0; i < keys.length; i++) {
     yAxis[keys[i]] = d3.scaleLinear().domain(d3.extent(data, function(obj) {
       let val = +obj[keys[i]];
-      return (isNaN(val)) ? 1 : val;
+      return (isNaN(val)) ? data[0][keys[i]] : val;
     })).range([chartHeight, 0]);
   }
 
@@ -51,14 +57,6 @@ function drawChart(data) {
 
   // write up axis titles
   g.append("g")
-      .each(function(d) { d3.select(this).call(axis.scale(yAxis[d])); })
-    .append("text")
-      .style("text-anchor", "middle")
-      .attr("y", -10)
-      .text(function(d) { return d; });
-
-  g.append("g")
-      .attr("class", "brush")
       .each(function(d) {
          d3.select(this)
            .call(axis.scale(yAxis[d])); });
