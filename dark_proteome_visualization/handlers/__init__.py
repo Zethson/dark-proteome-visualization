@@ -4,7 +4,6 @@ from . import index
 from . import generic
 from . import elements
 from . import about
-from . import parallel_coordinates
 from . import explore
 from . import analyze
 from . import features

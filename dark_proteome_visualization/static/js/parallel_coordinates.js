@@ -26,13 +26,11 @@ function drawChart(data) {
   // Get axis, create scales
   xAxis.domain(keys);
   for (let i = 0; i < keys.length; i++) {
-    console.log(d3.extent(data, function(obj) {return obj[keys[i]];}));
     yAxis[keys[i]] = d3.scaleLinear().domain(d3.extent(data, function(obj) {
       let val = +obj[keys[i]];
       return (isNaN(val)) ? 1 : val;
     })).range([chartHeight, 0]);
   }
-  console.log(yAxis);
 
   // Draw lines
   lines = chartLayer.append("g")
@@ -46,7 +44,6 @@ function drawChart(data) {
         .attr("stroke", "blue")
         .style("stroke-opacity", "0.01")
         .attr("fill", "none");
- console.log("Plotting executed");
 
   var g = chartLayer.selectAll(".dim")
       .data(keys)
@@ -116,7 +113,6 @@ function drawChart(data) {
  var chartLayer = svg.append("g")
      .classed("chartLayer", true);
 
- console.log("Created svg, start plotting")
 
  createPlot();
 
