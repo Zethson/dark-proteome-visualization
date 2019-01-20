@@ -3,15 +3,33 @@
   let width, height,
       chartWidth, chartHeight,
       margin,
-      selected,
-      data;
+      selected;
 
   // Function to create plot
   let createPlot = function () {
     setSize();
     drawChart(dark_proteomes);
+    dark_proteins = reduceData(dark_proteins, 20000);
+    //drawChart(dark_proteins);
   }
 
+
+function reduceData(data, size) {
+  let shuffled = data.slice(0),
+      i = data.length,
+      min = i - size,
+      temp,
+      index;
+    
+  while (i-- > min) {
+    index = Math.floor((i + 1) * Math.random());
+    temp = shuffled[index];
+    shuffled[index] = shuffled[i];
+    shuffled[i] = temp;
+  }
+  return shuffled.slice(min);
+  
+}
 
 function drawChart(data) {
   let xAxis = d3.scaleBand().range([0, chartWidth], 1),
