@@ -7,6 +7,11 @@ from ..app import app
 @app.route('/contact_request', methods=['POST'])
 def contact_request():
     mail = Mail(app)
+
+    # validate form
+    if not request.form['name'] or not request.form['email'] or not request.form['message'] or "@" not in request.form['email']:
+        return render_template("contact_error.html")
+
     msg = Message("Dark Proteome Request by: " + request.form['name'],
                   sender=request.form['email'],
                   recipients=['lukas.heumos@gmail.com'])
@@ -14,4 +19,4 @@ def contact_request():
     message = "His/her message is: " + request.form['message']
     msg.body = sent_by + message
     mail.send(msg)
-    return render_template("index.html")
+    return render_template("contact_successful.html")
