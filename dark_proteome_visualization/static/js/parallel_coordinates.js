@@ -22,12 +22,7 @@
     for (i = 0; i < dark_proteins.length; i++){
       if (counter[dark_proteins[i]._domain] <= 1000){
         counter[dark_proteins[i]._domain] += 1;
-        let newObj = {};
-        for (let key in dark_proteins[i]) {
-            //copy all the fields
-            newObj[key.substring(1)] = dark_proteins[key];
-        }
-        arr.push(newObj);
+        arr.push(dark_proteins[i]);
       }
     }
     return arr;
@@ -41,7 +36,7 @@
         axis = d3.axisLeft(),
         keys = d3.keys(data[0]);  // array with names of attributes
     // Delete non-numeric keys
-    let remove = ['_primary_accession', 'primary_accession', 'kingdom', 'domain']
+    let remove = ['_primary_accession', '_kingdom', '_domain']
     for (let i = 0; i < remove.length; i++) {
 
       let index = keys.indexOf(remove[i]);
