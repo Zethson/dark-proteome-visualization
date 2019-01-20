@@ -41,7 +41,7 @@ def parse_dark_proteome():
                                              membrane)
                 dark_proteomes.append(dark_proteome)
 
-        assert(len(dark_proteomes) > 20200)
+		assert(len(dark_proteomes) > 20200)
         LOG.info("Successfully parsed dark proteome dataset")
 
         return dark_proteomes

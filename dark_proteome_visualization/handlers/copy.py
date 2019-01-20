@@ -1,10 +1,18 @@
-import json
+import logging
+import json as json
 
 from flask import render_template
 
+from ..app import app
 from dark_proteome_visualization.model.parser.dark_proteins_parser import parse_dark_proteins
 from dark_proteome_visualization.model.parser.dark_proteome_parser import parse_dark_proteome
-from ..app import app
+
+console = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+console.setFormatter(formatter)
+LOG = logging.getLogger("Copy")
+LOG.addHandler(console)
+LOG.setLevel(logging.INFO)
 
 
 @app.route("/copy")
