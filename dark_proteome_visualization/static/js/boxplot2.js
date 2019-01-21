@@ -34,7 +34,7 @@ var nondark = [];
 for(i=0; i< cat.length; i++)
     nondark[i] = [];
 
-console.log(param);
+//console.log(param);
 
   for(i=0; i<dark_proteins.length; i++) {
     for(j=0; j<cat.length; j++) {
@@ -64,8 +64,8 @@ console.log(param);
       // nondark["Disorder"].push(Number(dark_proteins[i]._disorder))
     // }
   // }
-console.log(dark);
-console.log(nondark);
+//console.log(dark);
+//console.log(nondark);
 
 //groupCounts contains all dark and non-dark values concatenated: key = 0,2,4, 6 represent the dark values, key = 1, 3, 5, 7 the non-dark values
 
@@ -86,7 +86,7 @@ for(i=0; i< 2 * cat.length; i++) {
     }
 }
 
-console.log(groupCounts);
+//console.log(groupCounts);
 
 // Sort group counts so quantile methods work
 for(var key in groupCounts) {
@@ -147,8 +147,8 @@ for(i=0; i<cat.length;i++){
 
 var min = Math.min(d3.min(min1), d3.min(min2));
 var max = Math.max(d3.max(max1), d3.max(max2));
-console.log(min);
-console.log(max);
+// console.log(min);
+// console.log(max);
 var yScale = d3.scaleLinear()
     .domain([min, max])
     .range([0, height]);
