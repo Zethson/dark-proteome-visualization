@@ -30,6 +30,58 @@
             <li><a href="{{ url_for('features') }}">Features</a></li>
         </ul>
     </nav>
+    <style>
+        html, body, #root{
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .x.axis path {
+            display: none;
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        .legend {
+            display: inline-block;
+        }
+        .legend .circle{
+            border-radius: 5px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .container{
+            /*background: rgba(166,166,166,1);*/
+            margin: 20px;
+        }
+        #info{
+            position: absolute;
+            display: inline-block;
+            min-width: 150px;
+            padding: 10px;
+            /*border-radius: 3px;*/
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+        }
+        text{
+            fill: #000;
+        }
+    </style>
 </header>
 
 <!-- Wrapper -->
@@ -61,7 +113,53 @@
 
                 </div>
 
-        </div>
+
+           <h2 >Distributions</h2>
+            <p> There are distributions of length, disorder and darkness of the proteins for different levels of aggregation (organism, kingdom, domain). This provides an overview of dataset, which includes approximately 550.000 proteins from the SwissProt Database.
+             </p>
+                    <div id="content_distribution"></div>
+                    <script type="text/javascript">
+                        var dark_proteomes = {{ dark_proteomes | safe }};
+                        var dark_proteins = {{ dark_proteins | safe }};
+                    </script>
+
+<div id="root">
+    <div class="container">
+        <h1>Domains</h1>
+        <div class="legend" id="domainsLegend"></div>
+        <h3>Distribution of Length of Different Domains</h3>
+        <svg id="draw1"></svg>
+        <h3>Distribution of Disorder of Different Domains</h3>
+        <svg id="draw2"></svg>
+        <h3>Distribution of Darkness of Different Domains</h3>
+        <svg id="draw3"></svg>
+    </div>
+    <div class="container">
+        <h1>Kingdom</h1>
+        <div class="legend" id="kingdomLegend"></div>
+        <h3>Distribution of Length of Different Kingdoms</h3>
+        <svg id="draw4"></svg>
+        <h3>Distribution of Disorder of Different Kingdoms</h3>
+        <svg id="draw5"></svg>
+        <h3>Distribution of Darkness of Different Kingdoms</h3>
+        <svg id="draw6"></svg>
+    </div>
+    <div class="container">
+        <h1>Organism</h1>
+        <h3>Distribution of Length of Different Organisms</h3>
+        <svg id="draw7"></svg>
+        <h3>Distribution of Disorder of Different Organisms</h3>
+        <svg id="draw8"></svg>
+        <h3>Distribution of Darkness of Different Organisms</h3>
+        <svg id="draw9"></svg>
+    </div>
+</div>
+<div id="info">
+
+</div>
+
+<script src={{ url_for('static',filename='js/distribution.js') }}></script>
+
     </section>
 
 
