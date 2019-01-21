@@ -45,8 +45,6 @@
             </script>
 
             <h1 class="major">Explore the Dark Proteome</h1>
-            <span class="image fit"><img src="{{ url_for('static', filename='images/rsz_lappalainen_proteiini.jpg') }}"
-                                         alt=""/></span>
                <h2 >Scatter plot</h2>
                 <p>Here is a scatter plot. Description ..........</p>
                 <p>Data Interpretation ..........</p>
@@ -61,15 +59,31 @@
                <h2 >Parallel Coordinates</h2>
                 <p>Parallel Coordinates provide a great way of visualizing correlations in high-dimensional spaces.
                 Because of the size of the dataset that is visualized, individual lines are barely distinguishable.
-                Therefore, the opacity is set to 0.01. This enables to get a feeling for the distributions and the
-                correlations of subsets of certain dimensions.</p>
+                Therefore, the default opacity is set to 0.2, however you can adapt this to your needs.
+                This enables to get a feeling for the distributions and the correlations of subsets of certain dimensions.
+                For this visualization, the (maximum) number of samples used is limited, however you can increase this
+                at your own risk and in terms of your capacities - we recommend to show up to 20000 samples.
+                You can also use range-selection on the individual axes to only view the subset of samples that have the
+                specified attribute within the selected range. You can move the selection-box and change it's size in
+                either direction. To get rid of it, simply click on an unselected point on the axis.</p>
                 <div id="container">
-                    <div id ="my-menu-domain"></div>
-                    <div id ="my-menu-attribute"></div>
+                    <div id="option"> 
+                      <input name="toggleDataset" 
+                             type="button" 
+                             value="Switch to dark_proteins.csv" 
+                             id="toggleDataset"
+                             onclick="updateData()" />
+                      <input type="button" value="-" id="less_samples" onclick="minusSamples()" />
+                      <input type="text" size=15 readonly=true value="Max. samples: 5000" id="samples" style="width:250px;display:inline;" />
+                      <input type="button" value="+" id="more_samples" onclick="plusSamples()" />
+                      <span class="leftlabel">Opacity: 0</span>
+                        <input id ="opacity" type="range" min="0" max="100" value="20" style="width: 200px; margin-right: 10px;"/>
+                      <span class="rightlabel">1</span>
+                    </div>
                     <div id="content"></div>
 
                         <script src={{ url_for('static',filename='js/parallel_coordinates.js') }}></script>
-                </div>
+                    </div>
 
         </div>
     </section>
