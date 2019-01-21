@@ -10,7 +10,7 @@ pip3 install virtualenv
 
 cd ~
 
-git clone https://github.com/brettvanderwerff/dark-proteome-visualization
+git clone https://github.com/Zethson/dark-proteome-visualization
 
 cd dark-proteome-visualization
 
@@ -18,7 +18,7 @@ virtualenv dpenv
 
 source dpenv/bin/activate
 
-pip install gunicorn
+pip3 install gunicorn
 
 python setup.py clean --all install
 
