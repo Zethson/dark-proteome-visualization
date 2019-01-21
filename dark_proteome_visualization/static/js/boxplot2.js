@@ -144,7 +144,7 @@
 
   // Setup the svg and group the box plot will be drawn in
   
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#boxplot").append("svg")
     .attr("width", totalWidth)
     .attr("height", totalheight)
     .append("g")

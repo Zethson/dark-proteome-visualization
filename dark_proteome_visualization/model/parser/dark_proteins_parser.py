@@ -16,7 +16,7 @@ MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_PATH = os.path.join(MODULE_DIR, '../../static')
 TEMPLATES_PATH = os.path.join(MODULE_DIR, '../../templates')
 
-DARK_PROTEOME_PATH = '/data/dark_proteome/dark_proteins_all.csv'
+DARK_PROTEOME_PATH = '/data/dark_proteome/dark_proteins_all_cut_150k.csv'
 
 
 def parse_dark_proteins():

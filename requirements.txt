@@ -1,4 +1,6 @@
 pytest
-flask
 gevent
 click
+Flask-Mail
+Flask
+configparser
