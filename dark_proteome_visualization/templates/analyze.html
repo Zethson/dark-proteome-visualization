@@ -66,10 +66,6 @@ In bacteria, archaea, and viruses, non-dark proteins, surprisingly, had higher m
             <p> To investigate the potential differences between the dark and bright proteome, three different attributes (disorder, compositional bias, membrane) can be selected for plotting. Since the vast majority of those three attributes are mostly zero or close to zero, most data points fall into the first bin of the butterfly plot. Due to this problematic characteristic of the dataset, we impelmented the option to exclude the values which fall into the first bin. This allows an in-depth analysis of the differences between the subdatasets.</p>
                 <div id="container">
                     <div id="content_butterfly"></div>
-                    <script type="text/javascript">
-                        var dark_proteomes = {{ dark_proteomes | safe }};
-                        var dark_proteins = {{ dark_proteins | safe }};
-                    </script>
                     <button type="button" id="button_membrane">Membrane</button>
                     <button type="button" id="button_bias">Bias</button>
                     <button type="button" id="button_disorder">Disorder</button>
