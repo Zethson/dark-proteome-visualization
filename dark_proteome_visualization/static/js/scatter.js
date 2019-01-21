@@ -4,7 +4,7 @@ data_bacteria = []
 data_archaea = []
 num_datapoints = 7500
 
-// Create list of 10000 for every domain. Limit has to be 10000 since the performance would be too bad
+// Create list of 7500 for every domain. Limit has to be 10000 since the performance would be too bad
 for (i = 0; i < dark_proteins.length; i++){
   if ((data_virus.length < num_datapoints) && (dark_proteins[i]._domain == "Viruses")){
     data_virus.push(dark_proteins[i])

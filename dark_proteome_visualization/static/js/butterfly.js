@@ -1,7 +1,5 @@
 const my_dark_proteins = dark_proteins;
-console.log(dark_proteins.length)
 my_dark_proteins.length = 10000;
-console.log(my_dark_proteins.length)
 
   // create custom bins
   function thresholdArray(bins, max_Value) {
