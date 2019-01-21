@@ -5,10 +5,14 @@
 
 # Local Setup
 ```
+$ rename the mail_stub.conf in dark_proteome_visualization to mail.conf
+$ overwrite the stub values in mail.conf with a gmail account 
+$ enable less secure applications in your gmail account
 $ python setup.py clean --all install
 $ dark_proteome_visualization -l 127.0.0.1
 ```
-Point your browser to http://127.0.0.1:5000/
+Point your browser to http://127.0.0.1:5000/    
+Steps 2 and 3 are voluntary, but step 2 depends on 3!
 
 # Production Setup
 1. SSH into server as root (if no user with superuser privileges exists) 
