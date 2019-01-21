@@ -38,24 +38,31 @@
     <section id="main" class="wrapper">
         <div class="inner">
             <h1 class="major">About the Dark Proteome</h1>
-            <span class="image fit"><img src="{{ url_for('static', filename='images/rsz_lappalainen_proteiini.jpg') }}"
+            <span class="image fit"><img src="{{ url_for('static', filename='images/cell.png') }}"
                                          alt=""/></span>
-            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis
-                dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
-                Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia
-                malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien
-                risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit
-                tristique.</p>
-            <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet
-                dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo
-                mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis
-                elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+            <p>The dark proteome describes the set of proteins that cannot be observed by experimental structure
+            determination or is inaccessable to homology modeling. A recent study finds that about half of the proteins in
+            eukaryotes and viruses are dark, while about an eigth of all archaea and bacteria proteins are. Since dark
+            proteins are suspected to be related to hard-to-cure diseases such as Parkinson, cancer or Alzheimer,
+            gaining insights into the structure of dark proteins can improve the research speed and quality.</p>
+            <p>Due to the massive amount of data that quickly accumulates when working in Bioinformatics, it is
+            important to make the data accessable. One way to do that is by smart visualizations, from which
+            domain experts can extract important knowledge to develop new research.</p>
+            <p>For this website, we use the data from the <a
+                                         href="https://web.expasy.org/docs/swiss-prot_guideline.html">SwissProt</a>,
+                                       which provides information about sequenced proteins in two tables:
+            the dark_proteins_all.csv, which contains 546000 samples and information about the primary accession, domain, kingdom, organism id,
+            darkness, length, disorder, compositional bias and membrane as well as the
+            dark_proteome.csv, which contains 20209 samples and information about primary accession, uncertainty,
+            length, disorder, compositional bias and membrane.</p>
+            <p>For more information about the dark proteome in general, we refer to the  <a
+              href="https://darkproteome.wordpress.com/about/what-is-the-dark-proteome/">human dark proteome
+              initiative</a>, that promotes research on dark proteins. </p>
+
+
             <div id="container">
                 <div id="content"></div>
 
-                {% block content %}
-                    <script src={{ url_for('static',filename='js/network.js') }}></script>
-                {% endblock %}
             </div>
 
         </div>
