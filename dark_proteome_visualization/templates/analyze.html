@@ -42,8 +42,8 @@
             <span class="image fit"><img src="{{ url_for('static', filename='images/rsz_lappalainen_proteiini.jpg') }}"
                                          alt=""/></span>
            <h2 >Butterfly plot</h2>
-            <p>Here is a butterfly plot. Description ..........</p>
-            <p>Data Interpretation ..........</p>
+            <p> A butterfly plot is a type of histogram visualization, were distributions of two different subdatasets can be compared. Our butterfly plot shows the difference between the dark proteome (darkness > 0.5) and the bright proteome (darkness < 0.5). </p>
+            <p> To investigate the potential differences between the dark and bright proteome, three different attributes (disorder, compositional bias, membrane) can be selected for plotting. Since the vast majority of those three attributes are mostly zero or close to zero, most data points fall into the first bin of the butterfly plot. Due to this problematic characteristic of the dataset, we impelmented the option to exclude the values which fall into the first bin. This allows an in-depth analysis of the differences between the subdatasets.</p>
                 <div id="container">
                     <div id="content_butterfly"></div>
                     <script type="text/javascript">
