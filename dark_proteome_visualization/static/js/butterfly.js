@@ -1,5 +1,7 @@
 const my_dark_proteins = dark_proteins;
+console.log(dark_proteins.length)
 my_dark_proteins.length = 10000;
+console.log(my_dark_proteins.length)
 
   // create custom bins
   function thresholdArray(bins, max_Value) {
@@ -58,6 +60,7 @@ function butterflyChart() {
   let height = 600 - margin.top - margin.bottom;
   let myChartWidth = width - margin.left - margin.right;
   let myChartHeight = height - margin.top - margin.bottom;
+  let maxWithoutZero = 10; // Maximum X axis extend without zeros
   let my_right = NaN;
   let my_left = NaN;
   let panel = NaN;
@@ -65,7 +68,7 @@ function butterflyChart() {
   let attribute = "Membrane";
 
   let xdata = ["100", "80", "60", "40", "20", "0", "20", "40", "60", "80", "100"]; // custom axis labeling, since "scaling" does not properly work for irregular axis
-  let xdata6 = ["6", "4.8", "3.6", "2.4", "1.2", "0", "1.2", "2.4", "3.6", "4.8", "6"];
+  let xdata6 = ["10", "8", "6", "4", "2", "0", "2", "4", "6", "8", "10"];
 
   // values Scaling for bright and dark data respectively
   let xScaleDark  = d3.scaleLinear()
@@ -175,15 +178,15 @@ function butterflyChart() {
       // the change is handed
       function updateGraph(){
         if (zeroToggle == false){
-            myBrightData = binsBrightData[attribute].slice(1,-1);
-            myDarkData = binsDarkData[attribute].slice(1,-1);
+            myBrightData = binsBrightData[attribute].slice();
+            myDarkData = binsDarkData[attribute].slice();
             panel.selectAll("g.xAxis_SL")
               .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata6[d]}));
-            scalingFactor = 100/6;
+            scalingFactor = 100/maxWithoutZero;
         }
         else{
-          myBrightData = binsBrightData[attribute];
-          myDarkData = binsDarkData[attribute];
+          myBrightData = binsBrightData[attribute].slice();
+          myDarkData = binsDarkData[attribute].slice();
           panel.selectAll("g.xAxis_SL")
             .call(d3.axisBottom(forXAxis).ticks(10).tickFormat(function (d) {return xdata[d]}));
           scalingFactor = 1;
@@ -194,14 +197,28 @@ function butterflyChart() {
             .duration(1000)
             .attr("x", function(d, i) {return myChartWidth/2 })
             .attr("y", function(d, i) {return yScale(i)})
-            .attr("width", function(d, a) {return xScaleBright(d.length) * scalingFactor});
-
+            .attr("width", function(d, i) { if ((i == 0) && (zeroToggle == false)){
+                                                return 0; //excluce first bin
+                                            }
+                                            else {
+                                                return xScaleBright(d.length) * scalingFactor;
+                                            }});
         my_left.data(myDarkData) // dark data is updated
             .transition()
             .duration(1000)
-            .attr("x", function(d, i) {return myChartWidth/2 - (xScaleDark(d.length) * scalingFactor) })
+            .attr("x", function(d, i) {if ((i == 0) && (zeroToggle == false)){
+                                                return myChartWidth/2; // zero bin gets special x value, such that the transition animation looks correctly
+                                            }
+                                            else {
+                                                return myChartWidth/2 - (xScaleDark(d.length) * scalingFactor)
+                                            }})
             .attr("y", function(d, i) {return yScale(i)})
-            .attr("width", function(d, a) {return xScaleDark(d.length) * scalingFactor});
+            .attr("width", function(d, i) { if ((i == 0) && (zeroToggle == false)){
+                                                return 0; //excluce first bin
+                                            }
+                                            else {
+                                                return xScaleDark(d.length) * scalingFactor;
+                                            }});
         panel.select("text.Yaxis-label_SL")
           .text(attribute + " [%]")
       }

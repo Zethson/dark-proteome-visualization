@@ -2,19 +2,20 @@ data_virus = []
 data_eukaryota = []
 data_bacteria = []
 data_archaea = []
+num_datapoints = 7500
 
 // Create list of 10000 for every domain. Limit has to be 10000 since the performance would be too bad
 for (i = 0; i < dark_proteins.length; i++){
-  if ((data_virus.length < 10000) && (dark_proteins[i]._domain == "Viruses")){
+  if ((data_virus.length < num_datapoints) && (dark_proteins[i]._domain == "Viruses")){
     data_virus.push(dark_proteins[i])
   }
-  else if ((data_eukaryota.length < 10000) && (dark_proteins[i]._domain == "Eukaryota")){
+  else if ((data_eukaryota.length < num_datapoints) && (dark_proteins[i]._domain == "Eukaryota")){
     data_eukaryota.push(dark_proteins[i])
   }
-  else if ((data_bacteria.length < 10000) && (dark_proteins[i]._domain == "Bacteria")){
+  else if ((data_bacteria.length < num_datapoints) && (dark_proteins[i]._domain == "Bacteria")){
     data_bacteria.push(dark_proteins[i])
   }
-  else if ((data_archaea.length < 10000) && (dark_proteins[i]._domain == "Archaea")){
+  else if ((data_archaea.length < num_datapoints) && (dark_proteins[i]._domain == "Archaea")){
     data_archaea.push(dark_proteins[i])
   }
 }
