@@ -26,7 +26,6 @@
   for(i=0; i< cat.length; i++)
 	nondark[cat[i]] = [];
 
-  console.log(param);
   dark_proteins.length = 50000;
   
   for(i=0; i<dark_proteins.length; i++) {
@@ -38,10 +37,7 @@
     }
   }
   
-  console.log(dark);
-  console.log(nondark);
-  
-  
+
  //groupCounts contains all dark and non-dark values concatenated: key = 0,2,4, 6 represent the dark values, key = 1, 3, 5, 7 the non-dark values
 
   var groupCounts = {};
@@ -67,7 +63,6 @@
   
   for(var key in groupCounts) {
       let groupCount = groupCounts[key];
-	  console.log(groupCount[0].sort(sortNumber));
       groupCounts[key] = groupCount[0].sort(sortNumber);
   }
 
@@ -88,8 +83,6 @@
     var localMin = d3.min(groupCount);
     var localMax = d3.max(groupCount);
 	
-	console.log(localMin);
-	console.log(localMax);
 	
 	var key1 = [];
 	for(i = 0; i<cat.length; i++){
@@ -104,7 +97,7 @@
     record["color"] = colorScale(key);
 
     boxPlotData.push(record);
-	console.log(boxPlotData);
+
   }
 
   // Compute an ordinal xScale for the keys in boxPlotData
@@ -126,15 +119,10 @@
 	  min2[i] = d3.min(nondark[cat[i]]);
 	  max2[i] = d3.max(nondark[cat[i]]);
   }
-  console.log(min1);
-  console.log(max1);
-  console.log(min2);
-  console.log(max2);
-  
+
   var min = Math.min(d3.min(min1), d3.min(min2));
   var max = Math.max(d3.max(max1), d3.max(max2));
-  console.log(min);
-  console.log(max);
+
   var yScale = d3.scaleLinear()
     .domain([min, max])
     .range([0, height]);
