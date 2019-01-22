@@ -1,15 +1,14 @@
-//Code inspired by: https://blog.datasyndrome.com/a-simple-box-plot-in-d3-dot-js-44e7083c9a9e
-
 //configuring dimensions, margins and the width of each box plot element
-var width = 900;
-var height = 400;
+//Code inspired by: https://blog.datasyndrome.com/a-simple-box-plot-in-d3-dot-js-44e7083c9a9e
+let width = 900;
+let height = 400;
 const barWidth = 40;
 const padding = 50;
 
 const margin = {top: 40, right: 10, bottom: 20, left: 50};
 
-var width = width - margin.left - margin.right,
-    height = height - margin.top - margin.bottom;
+width = width - margin.left - margin.right;
+height = height - margin.top - margin.bottom;
 
 const totalWidth = width + margin.left + margin.right;
 const totalheight = height + margin.top + margin.bottom;
@@ -19,11 +18,11 @@ const totalheight = height + margin.top + margin.bottom;
 // Same for non-dark, _darkness values < 0.5;
 
 let dark = {};
-for (i = 0; i < cat.length; i++)
+for (let i = 0; i < cat.length; i++)
     dark[cat[i]] = [];
 
 let nondark = [];
-for (i = 0; i < cat.length; i++)
+for (let i = 0; i < cat.length; i++)
     nondark[cat[i]] = [];
 
 dark_proteins.length = 50000;
@@ -39,7 +38,6 @@ for (i = 0; i < dark_proteins.length; i++) {
 
 
 //groupCounts contains all dark and non-dark values concatenated: key = 0,2,4, 6 represent the dark values, key = 1, 3, 5, 7 the non-dark values
-
 const groupCounts = {};
 k1 = 0;
 k2 = 0;
@@ -60,7 +58,6 @@ for (i = 0; i < 2 * cat.length; i++) {
 
 
 // Sort group counts so quantile methods work
-
 for (key in groupCounts) {
     let groupCount = groupCounts[key];
     groupCounts[key] = groupCount[0].sort(sortNumber);
@@ -68,15 +65,13 @@ for (key in groupCounts) {
 
 
 // Setup a color scale for filling each box
-
 const colorScale = d3.scaleOrdinal()
     .domain(Object.keys(groupCounts))
     .range(["#696969", "#dcdcdc", "#696969", "#dcdcdc", "#696969", "#dcdcdc", "#696969", "#dcdcdc"]);
 
 // Prepare the data for the box plots
-
 const boxPlotData = [];
-for (var [key, groupCount] of Object.entries(groupCounts)) {
+for (let [key, groupCount] of Object.entries(groupCounts)) {
 
     const record = {};
 
@@ -85,7 +80,7 @@ for (var [key, groupCount] of Object.entries(groupCounts)) {
 
 
     var key1 = [];
-    for (i = 0; i < cat.length; i++) {
+    for (let i = 0; i < cat.length; i++) {
         key1[2 * i] = cat[i] + "_D"
         key1[2 * i + 1] = cat[i] + "_ND"
     }
@@ -101,14 +96,12 @@ for (var [key, groupCount] of Object.entries(groupCounts)) {
 }
 
 // Compute an ordinal xScale for the keys in boxPlotData
-
 const xScale = d3.scalePoint()
     .domain(Object.keys(groupCounts))
     .rangeRound([0, width])
     .padding([0.5]);
 
 // Compute the absolute mins and maxs for the scale
-
 const min1 = [];
 const max1 = [];
 const min2 = [];
@@ -128,7 +121,6 @@ const yScale = d3.scaleLinear()
     .range([0, height]);
 
 // Setup the svg and group the box plot will be drawn in
-
 const svg = d3.select("body").append("svg")
     .attr("width", totalWidth)
     .attr("height", totalheight)
@@ -136,7 +128,6 @@ const svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Move the left axis over 25 pixels, and the top axis over 35 pixels
-
 const axisG = svg.append("g")
     .attr("transform", "translate(25,0)");
 
@@ -144,11 +135,10 @@ const axisTopG = svg.append("g")
     .attr("transform", "translate(35,0)");
 
 // Setup the group the box plot elements will render in
-
 const g = svg.append("g")
     .attr("transform", "translate(20,5)");
 
-for (var i = 0; i < key1.length; i++) {
+for (let i = 0; i < key1.length; i++) {
     g.append("text")
         .attr("x", 2 * i * 52)
         .attr("font-size", "12px")
@@ -171,7 +161,6 @@ g.append("text")
 
 
 // Draw the box plot vertical lines
-
 const verticalLines = g.selectAll(".verticalLines")
     .data(boxPlotData)
     .enter()
@@ -212,8 +201,7 @@ const rects = g.selectAll("rect")
     })
     .attr("height", function (datum) {
             const quartiles = datum.quartile;
-            const height = yScale(quartiles[2]) - yScale(quartiles[0]);
-            return height;
+        return yScale(quartiles[2]) - yScale(quartiles[0]);
         }
     )
     .attr("x", function (datum) {
@@ -232,7 +220,6 @@ const rects = g.selectAll("rect")
     .attr("stroke-width", 1);
 
 // Render all the horizontal lines at once - the whiskers and the median
-
 const horizontalLineConfigs = [
     // Top whisker
     {
@@ -281,7 +268,7 @@ const horizontalLineConfigs = [
     }
 ];
 
-for (var i = 0; i < horizontalLineConfigs.length; i++) {
+for (let i = 0; i < horizontalLineConfigs.length; i++) {
     const lineConfig = horizontalLineConfigs[i];
 
     // Draw the whiskers at the min for this series
@@ -300,13 +287,11 @@ for (var i = 0; i < horizontalLineConfigs.length; i++) {
 }
 
 // Setup a scale on the left
-
 const axisLeft = d3.axisLeft(yScale);
 axisG.append("g")
     .call(axisLeft);
 
 // Setup a series axis on the top
-
 const axisTop = d3.axisTop(xScale);
 axisTopG.append("g")
     .call(axisTop);
@@ -320,10 +305,6 @@ function boxQuartiles(d) {
 }
 
 // Perform a numeric sort on an array
-
 function sortNumber(a, b) {
     return a - b;
 }
-
-// };  
-//};
