@@ -121,7 +121,7 @@ const yScale = d3.scaleLinear()
     .range([0, height]);
 
 // Setup the svg and group the box plot will be drawn in
-const svg = d3.select("body").append("svg")
+const svg = d3.select("#boxplot").append("svg")
     .attr("width", totalWidth)
     .attr("height", totalheight)
     .append("g")
