@@ -150,13 +150,13 @@ for (let i = 0; i < key1.length; i++) {
 g.append("text")
     .attr("text-anchor", "middle")  // center the text as the transform is applied to the anchor
     .attr("transform", "translate(-30," + (height / 2) + ")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-    .style("fill", "#FFFFFF")
+    .style("fill", "white")
     .text(param);
 
 g.append("text")
     .attr("text-anchor", "middle")  // center the text as the transform is applied to the anchor
     .attr("transform", "translate(" + (width / 2) + ",-30)")  // center below axis
-    .style("fill", "#FFFFFF")
+    .style("fill", "white")
     .text("Categories");
 
 
@@ -183,7 +183,7 @@ const verticalLines = g.selectAll(".verticalLines")
             return yScale(whisker);
         }
     )
-    .attr("stroke", "#FFFFFF")
+    .attr("stroke", "white")
     .attr("stroke-width", 1)
     .attr("fill", "none");
 
@@ -281,7 +281,7 @@ for (let i = 0; i < horizontalLineConfigs.length; i++) {
         .attr("y1", lineConfig.y1)
         .attr("x2", lineConfig.x2)
         .attr("y2", lineConfig.y2)
-        .attr("stroke", "#FFFFFF")
+        .attr("stroke", "white")
         .attr("stroke-width", 1)
         .attr("fill", "none");
 }
@@ -289,11 +289,13 @@ for (let i = 0; i < horizontalLineConfigs.length; i++) {
 // Setup a scale on the left
 const axisLeft = d3.axisLeft(yScale);
 axisG.append("g")
+    .attr("stroke", "white")
     .call(axisLeft);
 
 // Setup a series axis on the top
 const axisTop = d3.axisTop(xScale);
 axisTopG.append("g")
+    .attr("stroke", "white")
     .call(axisTop);
 
 function boxQuartiles(d) {
