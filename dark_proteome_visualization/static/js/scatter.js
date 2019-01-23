@@ -1,11 +1,11 @@
-data_virus = []
-data_eukaryota = []
-data_bacteria = []
-data_archaea = []
-num_datapoints = 7500
+data_virus = [];
+data_eukaryota = [];
+data_bacteria = [];
+data_archaea = [];
+num_datapoints = 7500;
 
 // Create list of 7500 for every domain. Limit has to be 10000 since the performance would be too bad
-for (i = 0; i < dark_proteins.length; i++){
+for (let i = 0; i < dark_proteins.length; i++){
   if ((data_virus.length < num_datapoints) && (dark_proteins[i]._domain == "Viruses")){
     data_virus.push(dark_proteins[i])
   }
@@ -25,12 +25,12 @@ let domainMap = { "Eukaryota": data_eukaryota,
                   "Viruses": data_virus,
                   "Bacteria": data_bacteria,
                   "Archaea": data_archaea
-                }
+                };
 
 let attributeMap = {"Membrane": "_membrane",
                     "Disorder": "_disorder",
                     "Compositional bias": "_compositional_bias"
-                    }
+                    };
 
 // Main function
 function createDensityPlot(domainMap, attributeMap){
@@ -60,7 +60,7 @@ function createDensityPlot(domainMap, attributeMap){
 
   let svg = d3.select('#content_scatter').append("svg")
         .attr("width", svgWidth)
-        .attr("height", svgHeight)
+        .attr("height", svgHeight);
 
 // Creates and updates the complete chart
 let updateChart = function(data, key){
@@ -116,7 +116,7 @@ let g_YAxis = svg.append('g')
   plot_surface.append("rect")
   .attr("class", "zoomRect_SL")
   .attr("width", myChartWidth)
-  .attr("height", myChartHeight)
+  .attr("height", myChartHeight);
   //.style("fill", "transparent")
 
   // actual datapoints
@@ -156,9 +156,9 @@ let g_YAxis = svg.append('g')
      .attr('cx', function(d) {return updated_xScale(Number(d[attributeMap[key]]))})
      .attr('cy', function(d) {return updated_yScale(Number(d["_darkness"]) * 100)});
     }
-}
+};
 
-    // create dropdon menu for attribute
+    // create dropdown menu for attribute
     let dropdownChangeAttribute = function() {
         let newAttribute = d3.select(this).property('value');
         currentAttribute = newAttribute;
@@ -178,7 +178,7 @@ let g_YAxis = svg.append('g')
       .attr("value", function (d) { return d; })
       .text(function (d) {return d;});
 
-      // create dropdon menu for domain data set
+      // create dropdown menu for domain data set
     let dropdownChangeDomain = function() {
         let newDomain = d3.select(this).property('value');
         currentDomain = newDomain;
@@ -199,14 +199,13 @@ let g_YAxis = svg.append('g')
       .attr("value", function (d) { return d; })
       .text(function (d) {return d});
 
-    currentDomain = "Eukaryota" // initial Values for the Scatter plot
-    currentAttribute = "Membrane"
+    currentDomain = "Eukaryota"; // initial Values for the Scatter plot
+    currentAttribute = "Membrane";
 
     let initialData = domainMap[currentDomain];
     updateChart(initialData, currentAttribute);
 
-};
-
-  window.onload = function() {
+}
+window.onload = function() {
     myPlot = createDensityPlot(domainMap, attributeMap);
   };
