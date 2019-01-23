@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
 rect {
-  fill: none;
+  fill: none; 
   pointer-events: all;
 }
 
